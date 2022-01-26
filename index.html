@@ -20,24 +20,24 @@
 		}
 	</script>
 	<script type="text/javascript">
-    function runtime(){
-        // 初始时间，日/月/年 时:分:秒
-        X = new Date("01/25/2022 8:32:00");
-        Y = new Date();
-        T = (Y.getTime()-X.getTime());
-        M = 24*60*60*1000;
-        a = T/M;
-        A = Math.floor(a);
-        b = (a-A)*24;
-        B = Math.floor(b);
-        c = (b-B)*60;
-        C = Math.floor((b-B)*60);
-        D = Math.floor((c-C)*60);
-        //信息写入到DIV中
-        span.innerHTML = "本站勉强运行: "+A+"天"+B+"小时"+C+"分"+D+"秒"
-    }
-    setInterval(runtime, 1000);
-</script>
+		function runtime() {
+			// 初始时间，日/月/年 时:分:秒
+			X = new Date("01/25/2022 8:32:00");
+			Y = new Date();
+			T = (Y.getTime() - X.getTime());
+			M = 24 * 60 * 60 * 1000;
+			a = T / M;
+			A = Math.floor(a);
+			b = (a - A) * 24;
+			B = Math.floor(b);
+			c = (b - B) * 60;
+			C = Math.floor((b - B) * 60);
+			D = Math.floor((c - C) * 60);
+			//信息写入到DIV中
+			span.innerHTML = "本站勉强运行: " + A + "天" + B + "小时" + C + "分" + D + "秒"
+		}
+		setInterval(runtime, 1000);
+	</script>
 
 	<script>
 		//执行一个laydate实例
@@ -45,6 +45,7 @@
 			elem: '#laydate' //指定元素
 				//,type: 'datetime'
 				,
+			trigger: 'click',
 			format: 'yyyy/MM/dd'
 
 		});
@@ -53,6 +54,7 @@
 			elem: '#jk' //指定元素
 				//,type: 'datetime'
 				,
+			trigger: 'click',
 			type: 'time',
 			format: 'HH'
 
@@ -80,15 +82,10 @@
 			</div>
 		</div>
 		<br>
-		<h5>说明：1.先点击【当前时间生成url】，再点【当前时间的热搜】<br />2.先点击【时间控件，选择时间，全部必选】，再点【自定义时间生成url】，最后再点【自定义时间的热搜】<br />3.时间控件不兼容手机，自行输入：2022/01/25和02</h5>
-		
-		<h5>数据来源：https://github.com/liurenjie520/weibohot</h5>
-			
-		
-		
-		
-		
-		
+		<h5>说明：1.先点击【当前时间生成url】，再点【当前时间的热搜】<br />2.先点击【时间控件，选择时间，全部必选】，再点【自定义时间生成url】，最后再点【自定义时间的热搜】<br />3.时间控件不兼容手机，自行输入：2022/01/25和02<br />4.需科学上网</h5>
+
+		<h5>数据来源：github</h5>
+
 		<form name="form1" method="post" action="">
 			<label>
     <input type="text" name="textfield" id="textfield" style="width:560px;height:40px;background-color:#FFF0CD">
@@ -137,13 +134,38 @@
 				</tr>
 			</thead>
 			<tbody id="tbMain"></tbody>
-			
-	
 
 	</body>
+	<script src="./layer/layer.js"></script>
 	<script src="./jquery-3.6.0.min.js"></script>
-	<script>
+	<script type="text/javascript">
 		var str_1 = '';
+		//全局配置
+		var shuju = ''
+		$.ajaxSetup({
+			layerIndex: -1, //保存当前请求对应的提示框index,用于后面关闭使用
+			//在请求显示提示框
+			beforeSend: function(jqXHR, settings) {
+				this.layerIndex = layer.load(1);
+			},
+
+			complete: function() {
+				//请求完毕后（成功），关闭提示框
+				if(shuju != '') {
+					layer.close(this.layerIndex);
+					//请求完毕后（失败），弹出错误信息，关闭提示框
+				} else {
+					layer.alert('数据请求失败，请后再试!');
+					layer.close(this.layerIndex);
+				}
+
+			},
+			//请求失败时，弹出错误信息，关闭提示框
+			error: function(jqXHR, status, e) {
+				layer.alert('数据请求失败，请后再试!');
+				layer.close(this.layerIndex);
+			}
+		});
 
 		function var2pass() {
 			var mdate = new Date();
@@ -180,65 +202,67 @@
 			document.getElementById('createurl').value = str_2;
 
 		}
-		
-		
-		
-		
-		
 
 		function show(dd) {
-			$.ajax({
-				url: dd, //json文件位置
-				type: "GET", //请求方式为get
-				dataType: "json", //返回数据格式为json
-				success: function(data) { //请求成功完成后要执行的方法 
-					//each循环 使用$.each方法遍历返回的数据date
-					$.each(data, function(i, item) {
+			if(shuju != '') {
+				layer.alert('已生成数据！请刷新页面再点击按钮！');
 
-						//                  var str =  '<table width=500 border=2><tr><td width=250>序号</td><td width=250>项目</td><td width=250>项目</td></tr><tr><td></td><td>'+ i +'</td><td>'+ item.hot + '</td></tr></table>'
-						//;                   
-						//                  document.write(str);
+			} else {
 
-						var biaoti = i
-						console.log(biaoti)
-						var hot = item.hot
-						
-						//                  document.getElementById('rs').innerHTML= biaoti;
-						//                  var tbody = document.getElementById('tbMain');
-						//                  var row = document.createElement('tr');
-						//                  var idCell = document.createElement('td');
-						//                  idCell.innerHTML = biaoti;
-						//                  var tbody = document.getElementById("tbMain");
-						//                  tbody.appendChild(row)
-						
+				$.ajax({
+					url: dd, //json文件位置
+					type: "GET", //请求方式为get
+					dataType: "json", //返回数据格式为json
+					success: function(data) { //请求成功完成后要执行的方法 
+						//each循环 使用$.each方法遍历返回的数据date
+						$.each(data, function(i, item) {
 
-						var tbody = document.getElementById('tbMain');
+							//                  var str =  '<table width=500 border=2><tr><td width=250>序号</td><td width=250>项目</td><td width=250>项目</td></tr><tr><td></td><td>'+ i +'</td><td>'+ item.hot + '</td></tr></table>'
+							//;                   
+							//                  document.write(str);
 
-//						for(var j = 0; j < item.length; j++) { //遍历一下json数据
-						var trow = getDataRow(); //定义一个方法,返回tr数据
-						tbody.appendChild(trow);
-//						}
-						
-						function getDataRow(){
+							var biaoti = i
+							console.log(biaoti)
+							var hot = item.hot
 
-						var row = document.createElement('tr'); //创建行
+							//                  document.getElementById('rs').innerHTML= biaoti;
+							//                  var tbody = document.getElementById('tbMain');
+							//                  var row = document.createElement('tr');
+							//                  var idCell = document.createElement('td');
+							//                  idCell.innerHTML = biaoti;
+							//                  var tbody = document.getElementById("tbMain");
+							//                  tbody.appendChild(row)
 
-						var idCell = document.createElement('td'); //创建第一列id
-						idCell.innerHTML = bh(); //填充数据
-						row.appendChild(idCell); //加入行  ，下面类似
-						var nameCell = document.createElement('td'); //创建第二列name
-						nameCell.innerHTML = biaoti;
-						row.appendChild(nameCell);
+							var tbody = document.getElementById('tbMain');
 
-						var jobCell = document.createElement('td'); //创建第三列job
-						jobCell.innerHTML = hot;
-						row.appendChild(jobCell);
-						return row; //返回tr数据	
-						}
+							//						for(var j = 0; j < item.length; j++) { //遍历一下json数据
+							var trow = getDataRow(); //定义一个方法,返回tr数据
+							tbody.appendChild(trow);
+							//						}
 
-					})
-				}
-			})
+							function getDataRow() {
+
+								var row = document.createElement('tr'); //创建行
+
+								var idCell = document.createElement('td'); //创建第一列id
+								idCell.innerHTML = bh(); //填充数据
+								row.appendChild(idCell); //加入行  ，下面类似
+								var nameCell = document.createElement('td'); //创建第二列name
+								nameCell.innerHTML = biaoti;
+								row.appendChild(nameCell);
+
+								var jobCell = document.createElement('td'); //创建第三列job
+								jobCell.innerHTML = hot;
+								row.appendChild(jobCell);
+								shuju = row
+								return row; //返回tr数据	
+							}
+
+						})
+					}
+				})
+
+			}
 		}
 	</script>
 
