@@ -107,7 +107,13 @@
     
      <input type="button" name="button3" style="width:150px;height:40px;background-color:#FFF0CD" id="button3" value="自定义时间生成url" onclick="javascript: void gettime();">
      <input type="button" name="button" style="width:150px;height:40px;background-color:#FFF0CD" id="button" value="自定义时间的热搜" onclick="javascript: void show(createurl.value);">
- 
+ <br /><br />
+    <input type="text" id="createurl2" style="width:560px;height:40px;background-color:#FFF0CD"/>
+    
+        
+ <input type="button" name="button5" style="width:150px;height:40px;background-color:#FFF0CD" id="button5" value="自定义时间csv生成url" onclick="javascript: void gettime2();">
+    <input type="button" name="button6" style="width:150px;height:40px;background-color:#FFF0CD" id="button6" value="csv下载" onclick="javascript: void xiazai(createurl2.value);">
+
     </label>
 		</form>
 
@@ -202,6 +208,30 @@
 			document.getElementById('createurl').value = str_2;
 
 		}
+				function gettime2() {
+
+			var gettime = document.getElementById('laydate').value
+			var date = new Date(gettime)
+			d = String(date.getDate().toString().padStart(2, '0'))
+			m = String((date.getMonth() + 1).toString().padStart(2, '0'))
+			y = String(date.getFullYear())
+			var hour = document.getElementById('jk').value
+			lujing = y + '/' + m + '/' + d
+			wenjian = '/' + y + '年'+ m+ '月' + d+ '日的热搜'  + '.csv'
+			zifu = "https://raw.githubusercontent.com/liurenjie520/weibohot/main/" + lujing
+			urll = zifu + wenjian
+			str_2 = urll.replace(/\s*/g, "")
+			console.log(str_2)
+			document.getElementById('createurl2').value = str_2;
+
+		}
+		
+		function xiazai(ddd) {
+//			url: ddd, //json文件位置
+		 window.open(ddd);
+		}
+		
+		
 
 		function show(dd) {
 			if(shuju != '') {
