@@ -208,7 +208,8 @@
 			document.getElementById('createurl').value = str_2;
 
 		}
-				function gettime2() {
+
+		function gettime2() {
 
 			var gettime = document.getElementById('laydate').value
 			var date = new Date(gettime)
@@ -217,7 +218,7 @@
 			y = String(date.getFullYear())
 			var hour = document.getElementById('jk').value
 			lujing = y + '/' + m + '/' + d
-			wenjian = '/' + y + '年'+ m+ '月' + d+ '日的热搜'  + '.csv'
+			wenjian = '/' + y + '年' + m + '月' + d + '日的热搜' + '.csv'
 			zifu = "https://raw.githubusercontent.com/liurenjie520/weibohot/main/" + lujing
 			urll = zifu + wenjian
 			str_2 = urll.replace(/\s*/g, "")
@@ -225,13 +226,11 @@
 			document.getElementById('createurl2').value = str_2;
 
 		}
-		
+
 		function xiazai(ddd) {
-//			url: ddd, //json文件位置
-		 window.open(ddd);
+			//			url: ddd, //json文件位置
+			window.open(ddd);
 		}
-		
-		
 
 		function show(dd) {
 			if(shuju != '') {
