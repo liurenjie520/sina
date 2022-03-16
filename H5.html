@@ -214,7 +214,6 @@
 		</div>
 		<br>
 		<h5 style="font-family:wenkai;font-size:20px;font-weight:bold;">若要下载csv文件请用pc浏览器打开</h5> <br />
-		
 
 		<form name="form1" method="post" action="">
 			<label>
@@ -262,7 +261,6 @@
 			</tr>
 		</table>
     -->
-
 
 		<table border="1" cellpadding="3" cellspacing="0" style="margin:0px auto;font-family:wenkai;font-size:20px;font-weight:bold;" class="table-2">
 			<thead>
@@ -322,7 +320,7 @@
 			zifu = "https://cdn.jsdelivr.net/gh/liurenjie520/weibohot@main/" + lujing
 			urll = zifu + wenjian
 			str_1 = urll.replace(/\s*/g, "");
-			console.log(str_1)
+			//			console.log(str_1)
 			document.getElementById('textfield').value = str_1;
 		}
 
@@ -339,7 +337,7 @@
 			zifu = "https://cdn.jsdelivr.net/gh/liurenjie520/weibohot@main/" + lujing
 			urll = zifu + wenjian
 			str_2 = urll.replace(/\s*/g, "")
-			console.log(str_2)
+			//			console.log(str_2)
 			document.getElementById('createurl').value = str_2;
 
 		}
@@ -357,7 +355,7 @@
 			zifu = "https://cdn.jsdelivr.net/gh/liurenjie520/weibohot@main/" + lujing
 			urll = zifu + wenjian
 			str_2 = urll.replace(/\s*/g, "")
-			console.log(str_2)
+			//			console.log(str_2)
 			document.getElementById('createurl2').value = str_2;
 
 		}
@@ -379,28 +377,49 @@
 				endYear: 2100,
 
 				init: function() {
-					console.log('插件开始触发');
+					//					console.log('插件开始触发');
 				},
 				moveEnd: function(scroll) {
 					console.log(scroll)
 
-					console.log('滚动结束');
+					//					console.log('滚动结束');
 				},
 				confirm: function(date) {
 
-					console.log(date)
+					//					console.log(date)
 
-					console.log('确定按钮触发')
+					//					console.log('确定按钮触发')
 					//日期判断
 					var d = new Date(),
 						//						d1 = new Date(date),
-						shi = date.substr(11, 2),
-						d2 = new Date(d.getHours()); //如果非'YYYY-MM-DD'格式，需要另做调整
+						nian = date.substr(0, 4)
+					yue = date.substr(5, 2)
+					ri = date.substr(8, 2)
+					shi = date.substr(11, 2)
 
-					if(shi > d2) {
-						alert('不能大于当前的日期');
+					getFullYear = d.getFullYear()
+					getMonth = d.getMonth()
+					getDate = d.getDate()
+
+					dqHours = d.getHours()
+
+					dqnyr = getFullYear + '/' + getMonth + '/' + getDate
+
+					nyr = nian + '/' + yue + '/' + ri
+
+					d1 = new Date(nyr),
+
+						d2 = new Date(d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate());
+
+					if(d1 > d2) {
+						alert('选择的' + nyr + '不能大于当前的' + dqnyr);
 						return false;
 					}
+					if(shi > dqHours) {
+						alert('选择的' + shi + '时不能大于当前的' + dqHours + '时');
+						return false;
+					}
+
 					nian = date.substr(0, 4)
 					yue = date.substr(5, 2)
 					ri = date.substr(8, 2)
@@ -410,13 +429,13 @@
 					zifu = "https://cdn.jsdelivr.net/gh/liurenjie520/weibohot@main"
 					urll = zifu + wenjian
 					str_2 = urll.replace(/\s*/g, "")
-					console.log(str_2)
+					//					console.log(str_2)
 
 					document.getElementById('createurl').value = str_2;
 
 				},
 				cancel: function() {
-					console.log('插件运行取消');
+					//					console.log('插件运行取消');
 				}
 			})
 
