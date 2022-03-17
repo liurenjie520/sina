@@ -243,6 +243,7 @@
         
  <input type="button" name="button5" style="width:220px;height:40px;background-color:#FFF0CD;font-family:wenkai;font-size:20px;font-weight:bold;" id="button5" value="自定义时间csv生成url" onclick="javascript: void gettime2();">
     <input type="button" name="button6" style="width:150px;height:40px;background-color:#FFF0CD;font-family:wenkai;font-size:20px;font-weight:bold;" id="button6" value="csv下载" onclick="javascript: void xiazai(createurl2.value);">
+     <input type="button" name="button" style="width:120px;height:40px;background-color:#FFF0CD;font-family:wenkai;font-size:20px;font-weight:bold;" id="button" value="清空" onclick="javascript: void sxanniu();">
 <br />
     </label>
 			<br />
@@ -261,19 +262,19 @@
 			</tr>
 		</table>
     -->
+		<div id="sx">
+			<table border="1" cellpadding="3" cellspacing="0" style="margin:0px auto;font-family:wenkai;font-size:20px;font-weight:bold;" class="table-2">
+				<thead>
+					<tr style="font-size:20px">
+						<th style="font-size:20px;font-weight:bold;text-align:center;">排行</th>
+						<th style="font-size:20px;font-weight:bold;text-align:center;">名称</th>
+						<th style="font-size:20px;font-weight:bold;text-align:center;">热度值</th>
 
-		<table border="1" cellpadding="3" cellspacing="0" style="margin:0px auto;font-family:wenkai;font-size:20px;font-weight:bold;" class="table-2">
-			<thead>
-				<tr style="font-size:20px">
-					<th style="font-size:20px;font-weight:bold;text-align:center;">排行</th>
-					<th style="font-size:20px;font-weight:bold;text-align:center;">名称</th>
-					<th style="font-size:20px;font-weight:bold;text-align:center;">热度值</th>
+					</tr>
+				</thead>
 
-				</tr>
-			</thead>
-
-			<tbody id="tbMain"></tbody>
-
+				<tbody id="tbMain"></tbody>
+		</div>
 	</body>
 	<script src="./layer/layer.js"></script>
 	<script src="./jquery-3.6.0.min.js"></script>
@@ -294,7 +295,7 @@
 					layer.close(this.layerIndex);
 					//请求完毕后（失败），弹出错误信息，关闭提示框
 				} else {
-					layer.alert('数据请求失败，请后再试!');
+					layer.alert('404 not found!');
 					layer.close(this.layerIndex);
 				}
 
@@ -365,9 +366,21 @@
 			window.open(ddd);
 		}
 
+		function sx() {
+			$("#sx").load(location.href + " #sx>*", "");
+
+		}
+
+		function sxanniu() {
+			shuju = '';
+
+			sx();
+
+		}
+
 		function show(dd) {
 			if(shuju != '') {
-				layer.alert('已生成数据！请刷新页面再点击按钮！');
+				layer.alert('已生成数据！请先点击清空按钮！');
 
 			} else {
 
