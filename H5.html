@@ -416,10 +416,11 @@
 						alert('选择的' + nyr + '不能大于当前的' + dqnyr);
 						return false;
 					}
-					if(shi > dqHours) {
-						alert('选择的' + shi + '时不能大于当前的' + dqHours + '时');
-						return false;
-					}
+					//有bug，取消小时判断
+//					if(shi > dqHours) {
+//						alert('选择的' + shi + '时不能大于当前的' + dqHours + '时');
+//						return false;
+//					}
 
 					nian = date.substr(0, 4)
 					yue = date.substr(5, 2)
